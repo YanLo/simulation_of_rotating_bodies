@@ -1,7 +1,8 @@
 print("Hi, please choose the model you want to investigate\nEnter corresponding number:")
 print("linear oscillator - 1, math pendulum - 2")
 
-import math_instruments
+from rungekut import rungekut
+from models import oscillation
 
 def get_user_choice(list_of_variants):
     user_input = int(input())
@@ -13,10 +14,7 @@ def get_user_choice(list_of_variants):
 model_num = get_user_choice([1, 2])
 if(model_num == 1):
     print("Now we are going to investigate linear oscillator")
-    def func(t, x):
-        return x
 
-    print("result of rungekut is ", math_instruments.rungekut(func, t_0=1, t_1=2, x_0=[1, 2]))
 
 if(model_num == 2):
     print("Now we are going to investigate math pendulum")
