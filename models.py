@@ -7,3 +7,7 @@ def oscillation(x):
 
     return [x[1], - w**2 * x[0]]
 
+#after - use decorators or some kind of this to create models with different parameters
+
+#BUT much better - use classes and inheritance to make code much more scalable and easy to read
+
