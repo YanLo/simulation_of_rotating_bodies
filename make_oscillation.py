@@ -1,5 +1,6 @@
 from matplotlib import pylab as plt
 from num_integration_methods import rungekut
+import os
 
 def create_frame(t, x):
     plt.clf()
@@ -10,12 +11,14 @@ def create_frame(t, x):
     plt.xlim([-3, 3])
     plt.title('t = {:.2f} c'.format(t))
     plt.savefig('frames/f_{:04.0f}.png'.format(t * 100), bbox_inches='tight', dpi=240)
-    #solve problem with creating frames directory
 
 def create_video(duration, model_func):
     frame_per_second = 25
     num_of_frames = duration * frame_per_second
     step = 1/frame_per_second
+
+    if not os.path.exists('frames'):
+        os.makedirs('frames')
 
     t = 0
     x = [1, 2]
@@ -25,4 +28,7 @@ def create_video(duration, model_func):
         t = t + step
         create_frame(t, x)
 
-    #write a script which will run ffmpeg to make a video from  frames
+    if os.path.exists('simulation_{}.avi'.format(model_func.__name__)):
+        os.remove('simulation_{}.avi'.format(model_func.__name__))
+    os.system('ffmpeg -f image2 -pattern_type glob -framerate 25 -i "frames/f_*.png" '
+              '-s 1080x1080 simulation_{}.avi'.format(model_func.__name__))
