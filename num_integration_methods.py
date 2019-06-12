@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def rungekut(func, t_0, t_1, x_0):
     num_of_it = 10
     step = (t_1 - t_0) /num_of_it
