@@ -2,11 +2,13 @@ import os
 
 
 def get_number():
-    user_input = input()
-    while not user_input.isdigit():
-        print('Please, try again and enter only a one number')
-        user_input = input()
-    return int(user_input)
+    user_input = None
+    while user_input is None:
+        try:
+            user_input = float(input())
+        except ValueError:
+            print('Please, try again and enter only a one float number')
+    return user_input
 
 
 def get_model_properties() -> object:
@@ -14,9 +16,13 @@ def get_model_properties() -> object:
     w = get_number()
     print('Now, please enter dissipation coefficient b')
     b = get_number()
+    print('Now, please enter x_0')
+    x_0 = get_number()
+    print('Now, please enter v_0')
+    v_0 = get_number()
     print('At last, enter the duration of a simulation video')
     duration = get_number()
-    return [w, b, duration]
+    return [w, b, duration, x_0, v_0]
 
 
 def run_video(properties, model_func):
@@ -24,7 +30,7 @@ def run_video(properties, model_func):
     if get_number() == 1:
         w = properties[0]
         b = properties[1]
-        os.system('xdg-open simulation_{name}_omega_{omega}_dissip_{betta}.avi'.format(
+        os.system('xdg-open videos/simulation_{name}_omega_{omega}_dissip_{betta}.avi'.format(
             name=model_func.__name__, omega=w, betta=b))
     else:
         print('Ok, if you do not want to run video now, you can do it later manually. Bye!')

@@ -18,26 +18,29 @@ def create_frame(t, x, w, b):
 def create_video(properties, model_func):
     duration = properties[2]
     frame_per_second = 25
-    num_of_frames = duration * frame_per_second
+    num_of_frames = int(duration * frame_per_second)
     step = 1 / frame_per_second
 
     if not os.path.exists('frames'):
         os.makedirs('frames')
+    os.system('rm frames/*')
+    if not os.path.exists('videos'):
+        os.makedirs('videos')
+    os.system('rm videos/*')
 
     t = 0
-    x = [1, 2]
+    x = [properties[3], properties[4]]
     w = properties[0]
     b = properties[1]
 
-    create_frame(t, x, w, b)
     model_func = model_decorator([w, b])(model_func)
-
+    create_frame(t, x, w, b)
     for i in range(num_of_frames):
         x = rungekut(model_func, t, t + step, x)
         t = t + step
         create_frame(t, x, w, b)
 
-    video_name = 'simulation_{name}_omega_{omega}_dissip_{betta}.avi'.format(
+    video_name = 'videos/simulation_{name}_omega_{omega}_dissip_{betta}.avi'.format(
             name=model_func.__name__, omega=w, betta=b)
     if os.path.exists(video_name):
         os.remove(video_name)
