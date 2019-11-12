@@ -1,4 +1,5 @@
 # simulation of rotating bodies.
 
-At this time I have released the basic version: linear oscillations.
+At that moment I have released the basic version: linear oscillations.\n
+
 ![](demonstration.gif)
